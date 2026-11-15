@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zila Comic - Sosmed Resmi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1b1530;
+      --paper: #fffdf5;
+      --yellow: #ffd23f;
+      --red: #ff3d54
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Comic Neue", "Comic Sans MS", cursive;
+      font-weight: 700;
+      font-size: 18px;
+      background-color: var(--yellow);
+      background-image: radial-gradient(var(--ink) 1.4px, transparent 1.6px);
+      background-size: 14px 14px;
+      display: flex;
+      justify-content: center;
+      padding: 28px 16px 40px;
+    } 
+
+    main {
+      width: 100%;
+      max-width: 460px;
+      text-align: center
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 14px;
+      display: grid;
+      place-items: center;
+      background: var(--red);
+      border: 4px solid var(--ink);
+      border-radius: 50%;
+      box-shadow: 5px 5px 0 var(--ink);
+      overflow: hidden;
+      font-family: Bangers, Impact, sans-serif;
+      font-size: 68px;
+      color: #fff;
+      -webkit-text-stroke: 2px var(--ink);
+      paint-order: stroke fill;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    h1 {
+      font-family: Bangers, Impact, sans-serif;
+      font-weight: 400;
+      margin: 0;
+      font-size: clamp(46px, 13vw, 66px);
+      line-height: 1;
+      letter-spacing: .04em;
+      color: var(--red);
+      -webkit-text-stroke: 3px var(--ink);
+      paint-order: stroke fill;
+      text-shadow: 5px 5px 0 var(--ink);
+      transform: rotate(-2deg);
+    }
+
+    .bio {
+      position: relative;
+      display: inline-block;
+      margin: 22px 0 26px;
+      padding: 8px 16px;
+      background: var(--paper);
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    .bio::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -12px;
+      width: 16px;
+      height: 16px;
+      background: var(--paper);
+      border-left: 3px solid var(--ink);
+      border-top: 3px solid var(--ink);
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 16px
+    }
+
+    a.link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 18px;
+      text-decoration: none;
+      color: var(--ink);
+      background: var(--c, #fff);
+      border: 4px solid var(--ink);
+      box-shadow: 6px 6px 0 var(--ink);
+      text-align: left;
+      transition: transform .08s, box-shadow .08s;
+    }
+
+    a.link:hover {
+      transform: translate(-2px, -2px) rotate(-.6deg);
+      box-shadow: 8px 8px 0 var(--ink)
+    }
+
+    a.link:active {
+      transform: translate(6px, 6px);
+      box-shadow: 0 0 0 var(--ink)
+    }
+
+    a.link:focus-visible {
+      outline: 4px solid var(--red);
+      outline-offset: 3px
+    }
+
+    .name {
+      font-family: Bangers, Impact, sans-serif;
+      font-weight: 400;
+      font-size: 28px;
+      letter-spacing: .05em;
+      line-height: 1
+    }
+
+    .handle {
+      display: block;
+      font-size: 15px;
+      margin-top: 3px
+    }
+
+    .go {
+      font-family: Bangers, Impact, sans-serif;
+      font-size: 26px;
+      flex: none
+    }
+
+    .watch {
+      --c: var(--ink);
+      color: #fff
+    }
+
+    a.watch {
+      color: #fff
+    }
+
+    a.watch .go {
+      color: var(--yellow)
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 15px
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      * {
+        transition: none !important
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="avatar" id="avatar"></div>
+    <h1 id="name"></h1>
+    <p class="bio" id="bio"></p>
+    <ul id="links"></ul>
+    <footer id="foot"></footer>
+  </main>
+
+  <script>
+    /* =========================================================
+       EDIT BAGIAN INI SAJA
+       ========================================================= */
+    var PROFILE = {
+      name: "Zila Comic",
+      bio: "Short komik tiap hari. Ikuti semua sosmed resmiku!",
+      avatar: ""            // isi link gambar profil, kosongkan untuk huruf "Z"
+    };
+
+    /* label : nama platform
+       handle: @username yang tampil di bawah label
+       url   : link sosmed kamu
+       color : warna tombol (hex), boleh dikosongkan
+       Tambah / hapus / ubah urutan sesuka hati. */
+    var LINKS = [
+      { label: "YouTube", handle: "@zilacomic", url: "https://youtube.com/@zilakomik", color: "#ff5a5a" },
+      { label: "Instagram", handle: "@zilacomic", url: "https://instagram.com/zilacomic", color: "#ff8fc7" },
+      { label: "TikTok", handle: "@zilacomic", url: "https://tiktok.com/@zilakomik", color: "#3ee0b0" },
+      { label: "X / Twitter", handle: "@zilacomic", url: "https://x.com/zilacomic", color: "#7fb0ff" },
+      { label: "Discord", handle: "Gabung komunitas", url: "https://discord.gg/xxxxxxx", color: "#c4a8ff" }
+    ];
+    /* ========================================================= */
+
+    (function () {
+      document.title = PROFILE.name + " - Sosmed Resmi";
+      document.getElementById("name").textContent = PROFILE.name;
+      document.getElementById("bio").textContent = PROFILE.bio;
+      document.getElementById("foot").textContent = "© " + new Date().getFullYear() + " " + PROFILE.name;
+
+      var av = document.getElementById("avatar");
+      if (PROFILE.avatar) {
+        var img = document.createElement("img"); img.src = PROFILE.avatar; img.alt = PROFILE.name; av.appendChild(img);
+      } else { av.textContent = PROFILE.name.charAt(0).toUpperCase(); }
+
+      var ul = document.getElementById("links");
+      LINKS.forEach(function (l) {
+        var li = document.createElement("li");
+        var a = document.createElement("a");
+        a.className = "link" + (l.dark ? " watch" : "");
+        a.href = l.url;
+        if (/^https?:/.test(l.url)) { a.target = "_blank"; a.rel = "noopener noreferrer"; }
+        if (l.color) a.style.setProperty("--c", l.color);
+        var t = document.createElement("div");
+        var n = document.createElement("span"); n.className = "name"; n.textContent = l.label;
+        var h = document.createElement("span"); h.className = "handle"; h.textContent = l.handle || "";
+        t.appendChild(n); t.appendChild(h);
+        var g = document.createElement("span"); g.className = "go"; g.textContent = "GAS!"; g.setAttribute("aria-hidden", "true");
+        a.appendChild(t); a.appendChild(g);
+        li.appendChild(a); ul.appendChild(li);
+      });
+    })();
+  </script>
+</body>
+
+</html>
