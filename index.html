@@ -3,12 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Zila Comic - Sosmed Resmi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #1b1530;
@@ -17,185 +16,246 @@
       --red: #ff3d54
     }
 
-    * {
-      box-sizing: border-box
-    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent }
 
     body {
       margin: 0;
       min-height: 100vh;
+      min-height: 100dvh;
       color: var(--ink);
       font-family: "Comic Neue", "Comic Sans MS", cursive;
       font-weight: 700;
-      font-size: 18px;
+      font-size: 17px;
       background-color: var(--yellow);
       background-image: radial-gradient(var(--ink) 1.4px, transparent 1.6px);
       background-size: 14px 14px;
       display: flex;
       justify-content: center;
-      padding: 28px 16px 40px;
-    } 
-
-    main {
-      width: 100%;
-      max-width: 460px;
-      text-align: center
+      padding: calc(18px + env(safe-area-inset-top, 0px)) 14px calc(32px + env(safe-area-inset-bottom, 0px));
     }
+    body.lock { overflow: hidden }
 
+    main { width: 100%; max-width: 480px; text-align: center }
+    button { font: inherit; color: var(--ink) }
+
+    /* ---------- header ---------- */
+    .head { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 6px }
     .avatar {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 14px;
-      display: grid;
-      place-items: center;
+      width: 64px; height: 64px; flex: none;
+      display: grid; place-items: center;
       background: var(--red);
-      border: 4px solid var(--ink);
-      border-radius: 50%;
-      box-shadow: 5px 5px 0 var(--ink);
+      border: 3px solid var(--ink); border-radius: 50%;
+      box-shadow: 3px 3px 0 var(--ink);
       overflow: hidden;
       font-family: Bangers, Impact, sans-serif;
-      font-size: 68px;
-      color: #fff;
-      -webkit-text-stroke: 2px var(--ink);
+      font-size: 38px; color: #fff;
+      -webkit-text-stroke: 1.5px var(--ink);
       paint-order: stroke fill;
     }
-
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover
-    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover }
 
     h1 {
       font-family: Bangers, Impact, sans-serif;
-      font-weight: 400;
-      margin: 0;
-      font-size: clamp(46px, 13vw, 66px);
-      line-height: 1;
-      letter-spacing: .04em;
+      font-weight: 400; margin: 0;
+      font-size: clamp(38px, 11vw, 54px);
+      line-height: 1; letter-spacing: .04em;
       color: var(--red);
-      -webkit-text-stroke: 3px var(--ink);
+      -webkit-text-stroke: 2.5px var(--ink);
       paint-order: stroke fill;
-      text-shadow: 5px 5px 0 var(--ink);
+      text-shadow: 4px 4px 0 var(--ink);
       transform: rotate(-2deg);
     }
 
     .bio {
-      position: relative;
       display: inline-block;
-      margin: 22px 0 26px;
-      padding: 8px 16px;
+      margin: 14px 0 16px; padding: 6px 14px;
+      font-size: 15px; line-height: 1.3;
       background: var(--paper);
-      border: 3px solid var(--ink);
-      border-radius: 14px;
-      box-shadow: 4px 4px 0 var(--ink);
+      border: 3px solid var(--ink); border-radius: 14px;
+      box-shadow: 3px 3px 0 var(--ink);
     }
 
-    .bio::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: -12px;
-      width: 16px;
-      height: 16px;
-      background: var(--paper);
-      border-left: 3px solid var(--ink);
-      border-top: 3px solid var(--ink);
-      transform: translateX(-50%) rotate(45deg);
-    }
-
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 16px
-    }
-
+    /* ---------- link sosmed (atas, 2 kolom) ---------- */
+    #links { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
     a.link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 18px;
-      text-decoration: none;
-      color: var(--ink);
+      display: block; height: 100%; min-height: 56px;
+      padding: 8px 12px; text-decoration: none; color: var(--ink);
       background: var(--c, #fff);
-      border: 4px solid var(--ink);
-      box-shadow: 6px 6px 0 var(--ink);
-      text-align: left;
+      border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink);
+      text-align: left; transition: transform .08s, box-shadow .08s;
+    }
+    a.link:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink) }
+    a.link:focus-visible { outline: 4px solid var(--red); outline-offset: 3px }
+    .name { display: block; font-family: Bangers, Impact, sans-serif; font-weight: 400; font-size: 24px; letter-spacing: .05em; line-height: 1 }
+    .handle { display: block; font-size: 13px; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+
+    /* ---------- toolbar ---------- */
+    .sec-title {
+      font-family: Bangers, Impact, sans-serif; font-weight: 400;
+      font-size: 36px; letter-spacing: .05em; line-height: 1;
+      margin: 0; text-shadow: 3px 3px 0 var(--paper);
+      transform: rotate(-1.5deg); text-align: left;
+    }
+    .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 30px 0 12px }
+    .btn {
+      min-height: 46px; padding: 6px 18px; cursor: pointer;
+      font-family: Bangers, Impact, sans-serif; font-size: 22px; letter-spacing: .05em;
+      background: var(--paper); border: 3px solid var(--ink); border-radius: 12px;
+      box-shadow: 3px 3px 0 var(--ink);
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink) }
+    .btn:focus-visible { outline: 4px solid var(--red); outline-offset: 2px }
+    .btn.red { background: var(--red); color: #fff }
+    .btn[aria-expanded="true"] { background: var(--ink); color: var(--yellow) }
+    .btn svg { width: 22px; height: 22px; flex: none }
+
+    .panel {
+      text-align: left; margin-bottom: 14px; padding: 12px;
+      background: var(--paper); border: 3px solid var(--ink); border-radius: 14px;
+      box-shadow: 4px 4px 0 var(--ink);
+      display: grid; gap: 10px;
+    }
+    .panel[hidden] { display: none }
+    .panel input, .panel select {
+      width: 100%; min-height: 46px; font: inherit; font-size: 16px; color: var(--ink);
+      padding: 8px 12px; background: #fff;
+      border: 3px solid var(--ink); border-radius: 10px;
+    }
+    .panel input:focus-visible, .panel select:focus-visible { outline: 4px solid var(--red); outline-offset: 1px }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px }
+    .chip {
+      min-height: 38px; padding: 2px 14px; font-size: 15px; cursor: pointer;
+      background: #fff; border: 3px solid var(--ink); border-radius: 999px;
+    }
+    .chip[aria-pressed="true"] { background: var(--red); color: #fff }
+    .chip:focus-visible { outline: 3px solid var(--red); outline-offset: 2px }
+    .reset { justify-self: start; font-size: 16px; min-height: 40px; padding: 4px 14px; background: #fff; border: 3px solid var(--ink); border-radius: 10px; cursor: pointer }
+
+    .count { font-size: 14px; margin: 0 0 12px; text-align: left }
+
+    /* ---------- grid judul ---------- */
+    #list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px }
+    #list .empty { grid-column: 1 / -1 }
+    .tile {
+      position: relative; display: block; width: 100%; padding: 0; cursor: pointer; overflow: hidden;
+      aspect-ratio: 3 / 4; background: var(--ink) center/cover no-repeat;
+      border: 3px solid var(--ink); box-shadow: 3px 3px 0 var(--ink);
       transition: transform .08s, box-shadow .08s;
     }
-
-    a.link:hover {
-      transform: translate(-2px, -2px) rotate(-.6deg);
-      box-shadow: 8px 8px 0 var(--ink)
+    .tile:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink) }
+    .tile:focus-visible { outline: 4px solid var(--red); outline-offset: 2px }
+    .play {
+      position: absolute; top: 5px; right: 5px; width: 22px; height: 22px;
+      display: grid; place-items: center; background: #fff; border: 2px solid var(--ink); border-radius: 6px;
     }
-
-    a.link:active {
-      transform: translate(6px, 6px);
-      box-shadow: 0 0 0 var(--ink)
+    .play svg { width: 10px; height: 10px; fill: var(--ink) }
+    .cap {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 6px 6px; text-align: left; color: #fff;
+      font-size: 13px; line-height: 1.15;
+      background: linear-gradient(to bottom, transparent, rgba(27, 21, 48, .92));
     }
-
-    a.link:focus-visible {
-      outline: 4px solid var(--red);
-      outline-offset: 3px
+    .ct { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere }
+    .pn {
+      display: inline-block; margin-top: 4px; padding: 0 6px; line-height: 1.25;
+      font-family: Bangers, Impact, sans-serif; font-size: 15px; letter-spacing: .05em;
+      background: var(--red); border: 2px solid var(--ink);
     }
+    .empty { padding: 18px; background: var(--paper); border: 3px dashed var(--ink); border-radius: 14px }
+    .more { margin-top: 18px; min-height: 52px; font-size: 26px }
 
-    .name {
-      font-family: Bangers, Impact, sans-serif;
-      font-weight: 400;
-      font-size: 28px;
-      letter-spacing: .05em;
-      line-height: 1
-    }
+    .soc-title { margin: 36px 0 14px }
+    #links { margin-bottom: 4px }
 
-    .handle {
-      display: block;
-      font-size: 15px;
-      margin-top: 3px
-    }
+    footer { margin-top: 26px; font-size: 14px }
 
-    .go {
-      font-family: Bangers, Impact, sans-serif;
-      font-size: 26px;
-      flex: none
+    /* ---------- pemutar (layar penuh) ---------- */
+    .ov {
+      position: fixed; inset: 0; z-index: 50; overflow-y: auto; -webkit-overflow-scrolling: touch;
+      background-color: var(--yellow);
+      background-image: radial-gradient(var(--ink) 1.4px, transparent 1.6px);
+      background-size: 14px 14px;
+      padding: calc(10px + env(safe-area-inset-top, 0px)) 14px calc(20px + env(safe-area-inset-bottom, 0px));
     }
+    .ov[hidden] { display: none }
+    .ov-in { max-width: 480px; margin: 0 auto; text-align: center }
+    .ov-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; text-align: left }
+    .ov-top .btn { min-height: 44px; padding: 4px 14px; font-size: 20px; flex: none }
+    .ov-title { font-size: 18px; line-height: 1.2; min-width: 0; overflow-wrap: anywhere }
+    .ov-meta { font-size: 13px; font-weight: 400; opacity: .85 }
+    .pbox { margin: 0 auto; width: min(100%, calc((100vh - 230px) * 0.5625)); width: min(100%, calc((100dvh - 230px) * 0.5625)); min-width: 220px; background: #000; border: 4px solid var(--ink); box-shadow: 5px 5px 0 var(--ink) }
+    .pbox.wide { width: 100% }
+    .pwrap { position: relative; width: 100%; padding-bottom: 177.7778% }
+    .pbox.wide .pwrap { padding-bottom: 56.25% }
+    .pwrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0 }
+    .nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin: 16px 0 10px }
+    .nav .btn { width: 100%; font-size: 20px }
+    .nav .btn:disabled { opacity: .35; pointer-events: none }
+    .pos { font-size: 16px; min-width: 64px }
+    .parts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center }
+    .pt {
+      min-width: 46px; min-height: 46px; padding: 2px 12px; cursor: pointer;
+      background: var(--paper); border: 3px solid var(--ink); border-radius: 10px; box-shadow: 2px 2px 0 var(--ink);
+    }
+    .pt[aria-current="true"] { background: var(--red); color: #fff }
+    .pt:focus-visible { outline: 3px solid var(--red); outline-offset: 2px }
 
-    .watch {
-      --c: var(--ink);
-      color: #fff
-    }
-
-    a.watch {
-      color: #fff
-    }
-
-    a.watch .go {
-      color: var(--yellow)
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 15px
-    }
-
-    @media (prefers-reduced-motion:reduce) {
-      * {
-        transition: none !important
-      }
-    }
+    @media (prefers-reduced-motion:reduce) { * { transition: none !important } }
   </style>
 </head>
 
 <body>
   <main>
-    <div class="avatar" id="avatar"></div>
-    <h1 id="name"></h1>
+    <div class="head">
+      <div class="avatar" id="avatar"></div>
+      <h1 id="name"></h1>
+    </div>
     <p class="bio" id="bio"></p>
+    <div class="bar">
+      <h2 class="sec-title">NONTON!</h2>
+      <button type="button" class="btn" id="searchBtn" aria-expanded="false" aria-controls="panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
+        CARI
+      </button>
+    </div>
+
+    <div class="panel" id="panel" hidden>
+      <input type="search" id="q" placeholder="Cari judul atau tag..." aria-label="Cari judul atau tag" enterkeyhint="search">
+      <select id="fCat" aria-label="Filter kategori"></select>
+      <div class="chips" id="tagChips"></div>
+      <button type="button" class="reset" id="reset">Reset filter</button>
+    </div>
+
+    <p class="count" id="count"></p>
+    <ul id="list"></ul>
+    <div id="moreWrap"></div>
+
+    <h2 class="sec-title soc-title">IKUTI KAMI!</h2>
     <ul id="links"></ul>
+
     <footer id="foot"></footer>
   </main>
+
+  <!-- pemutar -->
+  <div class="ov" id="ov" role="dialog" aria-modal="true" aria-labelledby="ovTitle" hidden>
+    <div class="ov-in">
+      <div class="ov-top">
+        <button type="button" class="btn red" id="close" aria-label="Tutup pemutar">&larr; BALIK</button>
+        <div>
+          <div class="ov-title" id="ovTitle"></div>
+          <div class="ov-meta" id="ovMeta"></div>
+        </div>
+      </div>
+      <div class="pbox" id="pbox"><div class="pwrap" id="pwrap"></div></div>
+      <div class="nav">
+        <button type="button" class="btn" id="prev">&larr; PREV</button>
+        <div class="pos" id="pos"></div>
+        <button type="button" class="btn" id="next">NEXT &rarr;</button>
+      </div>
+      <div class="parts" id="parts"></div>
+    </div>
+  </div>
 
   <script>
     /* =========================================================
@@ -203,51 +263,242 @@
        ========================================================= */
     var PROFILE = {
       name: "Zila Comic",
-      bio: "Short komik tiap hari. Ikuti semua sosmed resmiku!",
+      bio: "ZILA KAMU!! KAMU YANG ZILA!!",
       avatar: ""            // isi link gambar profil, kosongkan untuk huruf "Z"
     };
 
-    /* label : nama platform
-       handle: @username yang tampil di bawah label
-       url   : link sosmed kamu
-       color : warna tombol (hex), boleh dikosongkan
-       Tambah / hapus / ubah urutan sesuka hati. */
     var LINKS = [
       { label: "YouTube", handle: "@zilacomic", url: "https://youtube.com/@zilakomik", color: "#ff5a5a" },
       { label: "Instagram", handle: "@zilacomic", url: "https://instagram.com/zilacomic", color: "#ff8fc7" },
       { label: "TikTok", handle: "@zilacomic", url: "https://tiktok.com/@zilakomik", color: "#3ee0b0" },
-      { label: "X / Twitter", handle: "@zilacomic", url: "https://x.com/zilacomic", color: "#7fb0ff" },
       { label: "Discord", handle: "Gabung komunitas", url: "https://discord.gg/xxxxxxx", color: "#c4a8ff" }
     ];
+
+    /* DAFTAR JUDUL (1 judul bisa banyak video / part)
+       title   : judul
+       year    : tahun (angka)  -> daftar otomatis diurutkan dari tahun terbaru (tahun tidak ditampilkan)
+       category: kategori (satu saja)
+       tags    : daftar tag, boleh banyak
+       parts   : daftar video urut Part 1, Part 2, dst.
+                 isi link YouTube saja:        "https://youtube.com/shorts/xxxxxxxxxxx"
+                 atau dengan nama sendiri:     { label: "Ending", url: "https://..." }
+       wide    : (opsional) true kalau videonya landscape 16:9. Kosongkan untuk vertikal/shorts.
+       Link boleh format watch?v=, youtu.be/, shorts/, atau embed/. */
+    var VIDEOS = [
+      {
+        title: "Cyclops - Seeing Red", year: 2026, category: "marvel", tags: ["marvel", "xmen", "cyclops"],
+        parts: [
+          "https://www.youtube.com/watch?v=E6SMBjnVEEw",
+          "https://www.youtube.com/watch?v=ZJp9BFbWEu0",
+          "https://www.youtube.com/watch?v=Wg7S5Z38lws",
+        ]
+      },
+      {
+        title: "Poison Ivy v01 - The Virtuous Cycle", year: 2023, category: "dc", tags: ["dc", "poison ivy"],
+        parts: [
+          "https://www.youtube.com/watch?v=2MBq7tv01RA",
+          "https://www.youtube.com/watch?v=vCn7BcvJz_M",
+          "https://www.youtube.com/watch?v=u_eLvoI0nIE",
+        ]
+      },
+      {
+        title: "Absolute Batman v01 - The Zoo", year: 2025, category: "dc", tags: ["dc", "batman", "absolute"],
+        parts: [
+          "https://www.youtube.com/watch?v=sSQL-pyO0Zk",
+          "https://www.youtube.com/watch?v=sZ5TSN4XmlY",
+          "https://www.youtube.com/watch?v=xvSeO1hGIPs",
+        ]
+      },
+    ];
+
+    var PER_PAGE = 9;   // jumlah judul yang tampil dulu (3x3). Tombol "LAGI!" menampilkan 9 berikutnya
     /* ========================================================= */
 
     (function () {
-      document.title = PROFILE.name + " - Sosmed Resmi";
-      document.getElementById("name").textContent = PROFILE.name;
-      document.getElementById("bio").textContent = PROFILE.bio;
-      document.getElementById("foot").textContent = "© " + new Date().getFullYear() + " " + PROFILE.name;
+      var $ = function (id) { return document.getElementById(id); };
 
-      var av = document.getElementById("avatar");
+      /* ---------- profil & link ---------- */
+      document.title = PROFILE.name + " - Sosmed Resmi";
+      $("name").textContent = PROFILE.name;
+      $("bio").textContent = PROFILE.bio;
+      $("foot").textContent = "© " + new Date().getFullYear() + " " + PROFILE.name;
+
+      var av = $("avatar");
       if (PROFILE.avatar) {
         var img = document.createElement("img"); img.src = PROFILE.avatar; img.alt = PROFILE.name; av.appendChild(img);
       } else { av.textContent = PROFILE.name.charAt(0).toUpperCase(); }
 
-      var ul = document.getElementById("links");
       LINKS.forEach(function (l) {
         var li = document.createElement("li");
         var a = document.createElement("a");
-        a.className = "link" + (l.dark ? " watch" : "");
-        a.href = l.url;
+        a.className = "link"; a.href = l.url;
         if (/^https?:/.test(l.url)) { a.target = "_blank"; a.rel = "noopener noreferrer"; }
         if (l.color) a.style.setProperty("--c", l.color);
-        var t = document.createElement("div");
         var n = document.createElement("span"); n.className = "name"; n.textContent = l.label;
         var h = document.createElement("span"); h.className = "handle"; h.textContent = l.handle || "";
-        t.appendChild(n); t.appendChild(h);
-        var g = document.createElement("span"); g.className = "go"; g.textContent = "GAS!"; g.setAttribute("aria-hidden", "true");
-        a.appendChild(t); a.appendChild(g);
-        li.appendChild(a); ul.appendChild(li);
+        a.appendChild(n); a.appendChild(h); li.appendChild(a); $("links").appendChild(li);
       });
+
+      /* ---------- data video ---------- */
+      function ytId(u) {
+        var m = String(u || "").match(/(?:v=|youtu\.be\/|shorts\/|embed\/|live\/)([A-Za-z0-9_-]{11})/);
+        return m ? m[1] : null;
+      }
+      var items = VIDEOS.map(function (v, i) {
+        var parts = (v.parts || []).map(function (p, k) {
+          var url = typeof p === "string" ? p : p.url;
+          var label = (typeof p === "object" && p.label) ? p.label : "Part " + (k + 1);
+          return { id: ytId(url), label: label };
+        }).filter(function (p) { return p.id; });
+        return { order: i, title: v.title, year: Number(v.year) || 0, category: v.category || "", tags: v.tags || [], wide: !!v.wide, parts: parts };
+      }).filter(function (v) { return v.parts.length; });
+
+      /* urut: tahun terbaru dulu, kalau sama tahun ikut urutan di daftar */
+      items.sort(function (a, b) { return b.year - a.year || a.order - b.order; });
+
+      function uniq(arr) { return arr.filter(function (x, i) { return x !== "" && arr.indexOf(x) === i; }); }
+      var cats = uniq(items.map(function (v) { return v.category; })).sort();
+      var allTags = uniq([].concat.apply([], items.map(function (v) { return v.tags; }))).sort();
+
+      function fillSelect(el, first, arr) {
+        el.innerHTML = "";
+        [""].concat(arr).forEach(function (x, i) {
+          var o = document.createElement("option"); o.value = x; o.textContent = i ? x : first; el.appendChild(o);
+        });
+      }
+      fillSelect($("fCat"), "Semua kategori", cats);
+
+      var state = { q: "", cat: "", tags: [], shown: PER_PAGE };
+
+      allTags.forEach(function (t) {
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "chip"; b.textContent = "#" + t; b.setAttribute("aria-pressed", "false");
+        b.onclick = function () {
+          var k = state.tags.indexOf(t);
+          if (k > -1) state.tags.splice(k, 1); else state.tags.push(t);
+          b.setAttribute("aria-pressed", k > -1 ? "false" : "true");
+          state.shown = PER_PAGE; render();
+        };
+        $("tagChips").appendChild(b);
+      });
+
+      function filtered() {
+        var q = state.q.trim().toLowerCase();
+        return items.filter(function (v) {
+          if (state.cat && v.category !== state.cat) return false;
+          for (var i = 0; i < state.tags.length; i++) if (v.tags.indexOf(state.tags[i]) < 0) return false;
+          if (q && (v.title + " " + v.tags.join(" ") + " " + v.category).toLowerCase().indexOf(q) < 0) return false;
+          return true;
+        });
+      }
+
+      /* ---------- daftar ---------- */
+      function render() {
+        var res = filtered(), box = $("list");
+        box.innerHTML = "";
+        $("count").textContent = res.length + " judul";
+        if (!res.length) {
+          var e = document.createElement("li"); e.className = "empty"; e.textContent = "Yah, nggak ada yang cocok. Coba ganti filter!";
+          box.appendChild(e);
+        }
+        res.slice(0, state.shown).forEach(function (v) {
+          var li = document.createElement("li");
+          var b = document.createElement("button");
+          b.type = "button"; b.className = "tile";
+          b.style.backgroundImage = "url(https://i.ytimg.com/vi/" + v.parts[0].id + "/hqdefault.jpg)";
+          b.setAttribute("aria-label", v.title + ", " + v.parts.length + " part");
+          var pl = document.createElement("span"); pl.className = "play"; pl.setAttribute("aria-hidden", "true");
+          pl.innerHTML = '<svg viewBox="0 0 10 10"><path d="M2 1l7 4-7 4z"/></svg>';
+          var cap = document.createElement("div"); cap.className = "cap";
+          var t = document.createElement("div"); t.className = "ct"; t.textContent = v.title;
+          var pn = document.createElement("span"); pn.className = "pn"; pn.textContent = v.parts.length + " PART";
+          cap.appendChild(t); cap.appendChild(pn);
+          b.appendChild(pl); b.appendChild(cap);
+          b.onclick = function () { openPlayer(v, 0); };
+          li.appendChild(b); box.appendChild(li);
+        });
+        var mw = $("moreWrap"); mw.innerHTML = "";
+        if (res.length > state.shown) {
+          var mb = document.createElement("button");
+          mb.type = "button"; mb.className = "btn red more"; mb.textContent = "LAGI!";
+          mb.onclick = function () { state.shown += PER_PAGE; render(); };
+          mw.appendChild(mb);
+        }
+      }
+
+      /* ---------- tombol cari ---------- */
+      $("searchBtn").onclick = function () {
+        var open = $("panel").hidden;
+        $("panel").hidden = !open;
+        this.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) $("q").focus();
+      };
+      $("q").oninput = function () { state.q = this.value; state.shown = PER_PAGE; render(); };
+      $("fCat").onchange = function () { state.cat = this.value; state.shown = PER_PAGE; render(); };
+      $("reset").onclick = function () {
+        state = { q: "", cat: "", tags: [], shown: PER_PAGE };
+        $("q").value = ""; $("fCat").value = "";
+        Array.prototype.forEach.call($("tagChips").children, function (c) { c.setAttribute("aria-pressed", "false"); });
+        render();
+      };
+
+      /* ---------- pemutar ---------- */
+      var cur = null, idx = 0, lastFocus = null;
+
+      function showPart(k) {
+        idx = k;
+        var p = cur.parts[k];
+        $("pwrap").innerHTML = "";
+        var f = document.createElement("iframe");
+        f.src = "https://www.youtube.com/embed/" + p.id + "?rel=0&autoplay=1&playsinline=1";
+        f.title = cur.title + " - " + p.label;
+        f.allow = "autoplay; encrypted-media; picture-in-picture; web-share; fullscreen";
+        f.allowFullscreen = true;
+        f.referrerPolicy = "strict-origin";
+        $("pwrap").appendChild(f);
+        $("pos").textContent = (k + 1) + " / " + cur.parts.length;
+        $("prev").disabled = k === 0;
+        $("next").disabled = k === cur.parts.length - 1;
+        Array.prototype.forEach.call($("parts").children, function (c, i) {
+          if (i === k) c.setAttribute("aria-current", "true"); else c.removeAttribute("aria-current");
+        });
+      }
+
+      function openPlayer(v, k) {
+        cur = v; lastFocus = document.activeElement;
+        $("ovTitle").textContent = v.title;
+        $("ovMeta").textContent = v.category;
+        $("pbox").className = "pbox" + (v.wide ? " wide" : "");
+        var ps = $("parts"); ps.innerHTML = "";
+        v.parts.forEach(function (p, i) {
+          var b = document.createElement("button");
+          b.type = "button"; b.className = "pt"; b.textContent = p.label;
+          b.onclick = function () { showPart(i); };
+          ps.appendChild(b);
+        });
+        var multi = v.parts.length > 1;
+        document.querySelector(".nav").style.display = multi ? "" : "none";
+        ps.style.display = multi ? "" : "none";
+        $("ov").hidden = false; $("ov").scrollTop = 0;
+        document.body.classList.add("lock");
+        showPart(k);
+        $("close").focus();
+      }
+
+      function closePlayer() {
+        $("ov").hidden = true;
+        $("pwrap").innerHTML = "";   /* hentikan video */
+        document.body.classList.remove("lock");
+        cur = null;
+        if (lastFocus && lastFocus.focus) lastFocus.focus();
+      }
+
+      $("close").onclick = closePlayer;
+      $("prev").onclick = function () { if (cur && idx > 0) showPart(idx - 1); };
+      $("next").onclick = function () { if (cur && idx < cur.parts.length - 1) showPart(idx + 1); };
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape" && cur) closePlayer(); });
+
+      render();
     })();
   </script>
 </body>
